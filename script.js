@@ -8,7 +8,26 @@ function renderPartOne() {
   divs.forEach(function(el) { document.body.appendChild(el) })
 }
 
-// Returns a sorted array
+function renderPartTwo() {
+  var divs = window.criticalBarriers.map(function(item) {
+    var newDiv = document.createElement('div');
+    newDiv.innerHTML = "<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
+    return newDiv;
+  })
+
+  divs.forEach(function(el) { document.body.appendChild(el) })
+}
+
+function renderPartThree() {
+  var divs = window.noncriticalBarriers.map(function(item) {
+    var newDiv = document.createElement('div');
+    newDiv.innerHTML = "<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
+    return newDiv;
+  })
+
+  divs.forEach(function(el) { document.body.appendChild(el) })
+}
+
 function calculatePartOne() {
   function calculatePartOneSums() {
     var relevantBools = [];
@@ -44,7 +63,9 @@ function calculatePartOne() {
     var sum = sums[i];
     var denominator = window.organizationalPropertyDenominators[i];
     var percentage = Math.floor(100 * sum / denominator)
-    percentageObj[window.types[i]] = percentage;
+    percentageObj[window.types[i]] = {
+      percentage: percentage
+    };
   }
 
   return percentageObj;
@@ -54,4 +75,77 @@ function toArray(domList) {
   return Array.prototype.slice.call(domList);
 }
 
-renderPartOne()
+function calculatePartTwo() {
+  function calculatePartTwoResults() {
+    var relevantBools = [];
+
+    var items = toArray(document.querySelectorAll(".critical input"))
+    var isChecked = items.map(function(i) { return i.checked })
+
+    for (var i = 0; i < window.criticalBarriers.length; i++) {
+      var checked = isChecked[i];
+      if (!checked) continue
+
+      var item = window.criticalBarriers[i];
+      relevantBools.push(item);
+    }
+
+    console.log(relevantBools)
+    return relevantBools.reduce(function(acc, current) {
+      var result = []
+      for (var i = 0; i < 8; i++) {
+        result.push(acc[i] || !!current.values[i])
+      }
+      return result
+    }, [false, false, false, false, false, false, false, false]);
+  }
+
+  var results = calculatePartTwoResults()
+  var obj = {};
+  for (var i = 0; i < results.length; i++) {
+    var result = results[i];
+    obj[window.types[i]] = {
+      hasCriticalBarriers: result
+    }
+  }
+  return obj;
+}
+
+function calculatePartThree() {
+  function calculatePartThreeResults() {
+    var relevantBools = [];
+
+    var items = toArray(document.querySelectorAll(".noncritical input"))
+    var isChecked = items.map(function(i) { return i.checked })
+
+    for (var i = 0; i < window.noncriticalBarriers.length; i++) {
+      var checked = isChecked[i];
+      if (!checked) continue
+
+      var item = window.noncriticalBarriers[i];
+      relevantBools.push(item);
+    }
+
+    console.log(relevantBools)
+    return relevantBools.reduce(function(acc, current) {
+      var result = []
+      for (var i = 0; i < 8; i++) {
+        result.push(acc[i] || !!current.values[i])
+      }
+      return result
+    }, [false, false, false, false, false, false, false, false]);
+  }
+
+  var results = calculatePartThreeResults()
+  var obj = {};
+  for (var i = 0; i < results.length; i++) {
+    var result = results[i];
+    obj[window.types[i]] = {
+      hasNonCriticalBarriers: result
+    }
+  }
+  return obj;
+}
+
+renderPartTwo()
+renderPartThree()
