@@ -24,20 +24,25 @@ $("#part-one").show()
 function renderPartOne() {
   window.organizationalProperties
     .map(function(item) {
-      return $("<div class='properties'><span>" + item.text + "</span> <input type='checkbox'/></div>")
+      var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+
+      return $("<div class='properties'><label for='" + id + "'>" + item.text + "</label> <input type='checkbox' id='" + id + "'/></div>")
     })
     .forEach(function($el) { $el.appendTo($("#part-one .content")) })
 }
 
 function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
-    return $("<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>")
+    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+
+    return $("<div class='critical'><label for='" + id + "'>" + item.text + "</span> <input type='checkbox' id='" + id + "'/></div>")
   }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
 }
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
-    return $("<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>");
+    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+    return $("<div class='noncritical'><label for='" + id + "'>" + item.text + "</label> <input type='checkbox' id='" + id + "'/></div>");
   }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
 
