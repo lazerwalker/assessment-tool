@@ -181,6 +181,28 @@ function calculateAllResults() {
 
   results = _.sortBy(results, 'percentage').reverse()
   console.log(results)
+  renderResults(results)
+}
+
+function renderResults(results) {
+  var div = document.createElement('div');
+  div.className = "section";
+  div.id = "part-one";
+
+  var divs = results.map(function(item) {
+    var newDiv = document.createElement('div');
+    newDiv.innerHTML = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match.";
+    if (item.hasCriticalBarriers) {
+      newDiv.innerHTML += "Has critical barriers. "
+    }
+    if (item.hasNonCriticalBarriers) {
+      newDiv.innerHTML += "Has non-critical barriers. "
+    }
+    return newDiv;
+  })
+
+  divs.forEach(function(el) { div.appendChild(el) })
+  document.body.appendChild(div);
 }
 
 renderPartOne()
