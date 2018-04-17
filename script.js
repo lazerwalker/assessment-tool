@@ -188,15 +188,15 @@ function calculateAllResults() {
 
 function renderResults(results) {
   results.map(function(item) {
-    var newDiv = document.createElement('div');
-    newDiv.innerHTML = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match.";
+    var text = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match. ";
     if (item.hasCriticalBarriers) {
-      newDiv.innerHTML += "Has critical barriers. "
+      text += "Has critical barriers. "
     }
     if (item.hasNonCriticalBarriers) {
-      newDiv.innerHTML += "Has non-critical barriers. "
+      text += "Has non-critical barriers. "
     }
-    return $(newDiv);
+    text += "</div>"
+    return $(text);
   }).forEach(function(el) { el.appendTo($("#results")) })
 }
 
