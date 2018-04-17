@@ -1,46 +1,21 @@
 function renderPartOne() {
-  var div = document.createElement('div');
-  div.className = "section";
-  div.id = "part-one";
-
-  var divs = window.organizationalProperties.map(function(item) {
-    var newDiv = document.createElement('div');
-    newDiv.innerHTML = "<div class='properties'><span>" + item.text + "</span> <input type='checkbox'/></div>";
-    return newDiv;
-  })
-
-  divs.forEach(function(el) { div.appendChild(el) })
-  document.body.appendChild(div);
+  window.organizationalProperties
+    .map(function(item) {
+      return $("<div class='properties'><span>" + item.text + "</span> <input type='checkbox'/></div>")
+    })
+    .forEach(function($el) { $el.appendTo($("#part-one")) })
 }
 
 function renderPartTwo() {
-  var div = document.createElement('div');
-  div.className = "section";
-  div.id = "part-two";
-
-  var divs = window.criticalBarriers.map(function(item) {
-    var newDiv = document.createElement('div');
-    newDiv.innerHTML = "<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
-    return newDiv;
-  })
-
-  divs.forEach(function(el) { div.appendChild(el) })
-  document.body.appendChild(div);
+  window.criticalBarriers.map(function(item) {
+    return $("<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>")
+  }).forEach(function($el) { $el.appendTo($("#part-two"))})
 }
 
 function renderPartThree() {
-  var div = document.createElement('div');
-  div.className = "section";
-  div.id = "part-three";
-
-  var divs = window.noncriticalBarriers.map(function(item) {
-    var newDiv = document.createElement('div');
-    newDiv.innerHTML = "<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
-    return newDiv;
-  })
-
-  divs.forEach(function(el) { div.appendChild(el) })
-  document.body.appendChild(div);
+  window.noncriticalBarriers.map(function(item) {
+    return $("<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>");
+  }).forEach(function($el) { $el.appendTo($("#part-three") )})
 }
 
 function calculatePartOne() {
@@ -160,10 +135,9 @@ function calculatePartThree() {
 }
 
 function renderButton() {
-  var button = document.createElement("button");
-  button.innerText = "Calculate";
-  button.addEventListener('click', calculateAllResults)
-  document.body.appendChild(button);
+  var $button = $("<button>Calculate</button>")
+  $button.on('click', calculateAllResults)
+  $button.appendTo($(document.body))
 }
 
 function calculateAllResults() {
@@ -191,10 +165,6 @@ function calculateAllResults() {
 }
 
 function renderResults(results) {
-  var div = document.createElement('div');
-  div.className = "section";
-  div.id = "part-one";
-
   var divs = results.map(function(item) {
     var newDiv = document.createElement('div');
     newDiv.innerHTML = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match.";
