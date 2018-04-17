@@ -1,31 +1,46 @@
 function renderPartOne() {
+  var div = document.createElement('div');
+  div.className = "section";
+  div.id = "part-one";
+
   var divs = window.organizationalProperties.map(function(item) {
     var newDiv = document.createElement('div');
     newDiv.innerHTML = "<div class='properties'><span>" + item.text + "</span> <input type='checkbox'/></div>";
     return newDiv;
   })
 
-  divs.forEach(function(el) { document.body.appendChild(el) })
+  divs.forEach(function(el) { div.appendChild(el) })
+  document.body.appendChild(div);
 }
 
 function renderPartTwo() {
+  var div = document.createElement('div');
+  div.className = "section";
+  div.id = "part-two";
+
   var divs = window.criticalBarriers.map(function(item) {
     var newDiv = document.createElement('div');
     newDiv.innerHTML = "<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
     return newDiv;
   })
 
-  divs.forEach(function(el) { document.body.appendChild(el) })
+  divs.forEach(function(el) { div.appendChild(el) })
+  document.body.appendChild(div);
 }
 
 function renderPartThree() {
+  var div = document.createElement('div');
+  div.className = "section";
+  div.id = "part-three";
+
   var divs = window.noncriticalBarriers.map(function(item) {
     var newDiv = document.createElement('div');
     newDiv.innerHTML = "<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>";
     return newDiv;
   })
 
-  divs.forEach(function(el) { document.body.appendChild(el) })
+  divs.forEach(function(el) { div.appendChild(el) })
+  document.body.appendChild(div);
 }
 
 function calculatePartOne() {
@@ -147,5 +162,6 @@ function calculatePartThree() {
   return obj;
 }
 
+renderPartOne()
 renderPartTwo()
 renderPartThree()
