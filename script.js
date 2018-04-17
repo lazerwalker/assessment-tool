@@ -1,21 +1,44 @@
+$(document).on('click', '#part-one button', function(e) {
+  $("#part-one").fadeOut(400, function() {
+    renderPartTwo()
+    $("#part-two").fadeIn(400)
+  })
+})
+
+$(document).on('click', '#part-two button', function(e) {
+  $("#part-two").fadeOut(400, function() {
+    renderPartThree()
+    $("#part-three").fadeIn(400)
+  })
+})
+
+$(document).on('click', '#part-three button', function(e) {
+  $("#part-three").fadeOut(400, function() {
+    calculateAllResults()
+    $("#results").fadeIn(400)
+  })
+})
+
+$("#part-one").show()
+
 function renderPartOne() {
   window.organizationalProperties
     .map(function(item) {
       return $("<div class='properties'><span>" + item.text + "</span> <input type='checkbox'/></div>")
     })
-    .forEach(function($el) { $el.appendTo($("#part-one")) })
+    .forEach(function($el) { $el.appendTo($("#part-one .content")) })
 }
 
 function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
     return $("<div class='critical'><span>" + item.text + "</span> <input type='checkbox'/></div>")
-  }).forEach(function($el) { $el.appendTo($("#part-two"))})
+  }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
 }
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
     return $("<div class='noncritical'><span>" + item.text + "</span> <input type='checkbox'/></div>");
-  }).forEach(function($el) { $el.appendTo($("#part-three") )})
+  }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
 
 function calculatePartOne() {
@@ -134,12 +157,6 @@ function calculatePartThree() {
   return obj;
 }
 
-function renderButton() {
-  var $button = $("<button>Calculate</button>")
-  $button.on('click', calculateAllResults)
-  $button.appendTo($(document.body))
-}
-
 function calculateAllResults() {
   var one = calculatePartOne()
   var two = calculatePartTwo()
@@ -165,7 +182,7 @@ function calculateAllResults() {
 }
 
 function renderResults(results) {
-  var divs = results.map(function(item) {
+  results.map(function(item) {
     var newDiv = document.createElement('div');
     newDiv.innerHTML = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match.";
     if (item.hasCriticalBarriers) {
@@ -174,14 +191,8 @@ function renderResults(results) {
     if (item.hasNonCriticalBarriers) {
       newDiv.innerHTML += "Has non-critical barriers. "
     }
-    return newDiv;
-  })
-
-  divs.forEach(function(el) { div.appendChild(el) })
-  document.body.appendChild(div);
+    return $(newDiv);
+  }).forEach(function(el) { el.appendTo($("#results")) })
 }
 
 renderPartOne()
-renderPartTwo()
-renderPartThree()
-renderButton()
