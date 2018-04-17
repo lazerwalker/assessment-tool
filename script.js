@@ -179,7 +179,13 @@ function calculateAllResults() {
     results.push(obj)
   })
 
-  results = _.sortBy(results, 'percentage').reverse()
+  var withCriticalBarriers = _.filter(results, function(r) { return r.hasCriticalBarriers })
+  var withoutCriticalBarriers = _.filter(results, function(r) { return !r.hasCriticalBarriers })
+
+  var sortedWith =  _.sortBy(withCriticalBarriers, 'percentage').reverse()
+  var sortedWithout =  _.sortBy(withoutCriticalBarriers, 'percentage').reverse()
+
+  results = sortedWithout.concat(sortedWith)
   console.log(results)
   renderResults(results)
 }
