@@ -1,12 +1,14 @@
 $(document).on('click', '#part-one button', function(e) {
   $("#part-one").fadeOut(400, function() {
     renderPartTwo()
+    $(document.body).scrollTop()
     $("#part-two").fadeIn(400)
   })
 })
 
 $(document).on('click', '#part-two button', function(e) {
   $("#part-two").fadeOut(400, function() {
+    $(document.body).scrollTop()
     renderPartThree()
     $("#part-three").fadeIn(400)
   })
@@ -14,6 +16,7 @@ $(document).on('click', '#part-two button', function(e) {
 
 $(document).on('click', '#part-three button', function(e) {
   $("#part-three").fadeOut(400, function() {
+    $(document.body).scrollTop()
     calculateAllResults()
     $("#results").fadeIn(400)
   })
