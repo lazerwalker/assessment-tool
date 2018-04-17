@@ -2,3 +2,20 @@
   margin-bottom: 1em;
   display: none;
 }
+
+input {
+  float: right;
+}
+
+.properties, .critical, .noncritical {
+  margin-bottom: 2em;
+}
+
+.section {
+  font-size: 1.1em;
+  line-height: 1.1em;
+}
+
+button {
+  position: absolute;
+}

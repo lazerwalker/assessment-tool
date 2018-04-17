@@ -26,7 +26,7 @@ function renderPartOne() {
     .map(function(item) {
       var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
 
-      return $("<div class='properties'><label for='" + id + "'>" + item.text + "</label> <input type='checkbox' id='" + id + "'/></div>")
+      return $("<div class='properties'><input type='checkbox' class='col-2' id='" + id + "'/><label class='col-10' for='" + id + "'>" + item.text + "</label></div>")
     })
     .forEach(function($el) { $el.appendTo($("#part-one .content")) })
 }
@@ -35,14 +35,14 @@ function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
     var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
 
-    return $("<div class='critical'><label for='" + id + "'>" + item.text + "</span> <input type='checkbox' id='" + id + "'/></div>")
+    return $("<div class='critical'><input type='checkbox' id='" + id + "'/><label for='" + id + "'>" + item.text + "</span></div>")
   }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
 }
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
     var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
-    return $("<div class='noncritical'><label for='" + id + "'>" + item.text + "</label> <input type='checkbox' id='" + id + "'/></div>");
+    return $("<div class='noncritical'><input type='checkbox' id='" + id + "'/><label for='" + id + "'>" + item.text + "</label></div>");
   }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
 
