@@ -179,6 +179,7 @@ function calculateAllResults() {
     results.push(obj)
   })
 
+  results = _.sortBy(results, 'percentage').reverse()
   console.log(results)
 }
 
