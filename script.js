@@ -171,13 +171,15 @@ function calculateAllResults() {
   var two = calculatePartTwo()
   var three = calculatePartThree()
 
-  var results = {};
+  var results = [];
 
   var keys = _.keys(one)
   _.forEach(keys, function(k) {
-    results[k] = {}
-    results[k] = _.extend({}, one[k], two[k], three[k])
+    var obj = _.extend({type: k}, one[k], two[k], three[k])
+    results.push(obj)
   })
+
+  console.log(results)
 }
 
 renderPartOne()
