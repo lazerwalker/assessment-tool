@@ -61,7 +61,6 @@ function calculatePartOne() {
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        console.log(current)
         if (current.values[i]) {
           result.push(acc[i] + 1)
         } else {
@@ -105,7 +104,6 @@ function calculatePartTwo() {
       relevantBools.push(item);
     }
 
-    console.log(relevantBools)
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
@@ -141,7 +139,6 @@ function calculatePartThree() {
       relevantBools.push(item);
     }
 
-    console.log(relevantBools)
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
@@ -162,6 +159,28 @@ function calculatePartThree() {
   return obj;
 }
 
+function renderButton() {
+  var button = document.createElement("button");
+  button.innerText = "Calculate";
+  button.addEventListener('click', calculateAllResults)
+  document.body.appendChild(button);
+}
+
+function calculateAllResults() {
+  var one = calculatePartOne()
+  var two = calculatePartTwo()
+  var three = calculatePartThree()
+
+  var results = {};
+
+  var keys = _.keys(one)
+  _.forEach(keys, function(k) {
+    results[k] = {}
+    results[k] = _.extend({}, one[k], two[k], three[k])
+  })
+}
+
 renderPartOne()
 renderPartTwo()
 renderPartThree()
+renderButton()
