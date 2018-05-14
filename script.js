@@ -17,6 +17,13 @@ function fadeToFacilitatorsSubsection(el) {
   })
 }
 
+function partOnePercentage() {
+  var filled = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"].reduce(function(acc, el) { return acc + $(el).serializeArray().length }, 0)
+  var total = $("#part-one .properties").length
+
+  return filled / total
+}
+
 function partTwoPercentage() {
   return $("#part-two .content").serializeArray().length / ($("#part-two .content").children('.critical').length)
 }
@@ -43,7 +50,7 @@ $(document).on('click', '#part-one button', function(e) {
 })
 
 $(document).on('click', 'input', function(e) {
-  $("#part-one-percent").text("5");
+  $("#part-one-percent").text(Math.floor(partOnePercentage() * 100))
   $("#part-two-percent").text(Math.floor(partTwoPercentage() * 100))
   $("#part-three-percent").text(Math.floor(partThreePercentage() * 100))
 })
