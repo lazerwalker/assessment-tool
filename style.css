@@ -25,3 +25,14 @@ button {
   font-size: 1.2em;
   line-height: 1.2em;
 }
+
+#header {
+  height: 60px;
+  vertical-align: top;
+}
+
+#header div {
+  display: inline-block;
+  height: 100%;
+  width: 19%;
+}

@@ -1,28 +1,34 @@
-$(document).on('click', '#part-one button', function(e) {
-  $("#part-one").fadeOut(400, function() {
-    renderPartTwo()
+var $active;
+
+function fadeTo($el) {
+  $active.fadeOut(400, function() {
     $(document.body).scrollTop()
-    $("#part-two").fadeIn(400)
+    $el.fadeIn(400)
+    $active = $el
   })
+}
+
+$(document).on('click', '#part-one button', function(e) {
+  fadeTo($("#part-two"))
+})
+
+$(document).on('click', '#header div', function(e) {
+  var target = $(e.target).attr('data-link')
+  var $el = $("#" + target)
+  fadeTo($el)
 })
 
 $(document).on('click', '#part-two button', function(e) {
-  $("#part-two").fadeOut(400, function() {
-    $(document.body).scrollTop()
-    renderPartThree()
-    $("#part-three").fadeIn(400)
-  })
+  fadeTo($("#part-three"))
 })
 
 $(document).on('click', '#part-three button', function(e) {
-  $("#part-three").fadeOut(400, function() {
-    $(document.body).scrollTop()
-    calculateAllResults()
-    $("#results").fadeIn(400)
-  })
+  calculateAllResults()
+  fadeTo($("#results"))
 })
 
 $("#part-one").show()
+$active = $("#part-one")
 
 function renderPartOne() {
   window.organizationalProperties
@@ -204,3 +210,5 @@ function renderResults(results) {
 }
 
 renderPartOne()
+renderPartTwo()
+renderPartThree()
