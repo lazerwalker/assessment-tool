@@ -1,11 +1,15 @@
-var $active;
+var active;
 var activeFacilitator;
 
-function fadeTo($el) {
-  $active.fadeOut(400, function() {
+var activeOptions = ["#home", "#part-one", "#part-two", "#part-three", "#results"]
+var facilitatorOptions = ["#employee", "#leadership", "#organization"]
+
+function fadeTo(el) {
+  window.location.hash = el
+  $(active).fadeOut(400, function() {
+    $(el).fadeIn(400)
+    active = el
     $(document.body).scrollTop()
-    $el.fadeIn(400)
-    $active = $el
   })
 }
 
@@ -14,11 +18,12 @@ function fadeToFacilitatorsSubsection(el) {
     $(document.body).scrollTop()
     $(el).fadeIn(400)
     activeFacilitator = el
+    window.location.hash = el
   })
 };
 
 function allPartOneResults() {
-  return ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
+  return ["#employee", "#leadership", "#organizational"]
     .map(function(el) { return $(el).serializeArray() })
     .reduce(function(el, acc) { return acc.concat(el) }, []);
 }
@@ -38,20 +43,34 @@ function partThreePercentage() {
   return $("#part-three .content").serializeArray().length / ($("#part-three .content").children('.noncritical').length)
 }
 
-$(document).on('click', '#part-one button', function(e) {
-  var facilitators = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
+window.addEventListener('hashchange', function(e) {
+  console.log(window.location.hash)
+  if (activeOptions.indexOf(window.location.hash) !== -1) {
+    if (window.location.hash !== active) {
+      fadeTo(window.location.hash)
+    }
+    if (window.location.hash == "#part-one") {
+      fadeToFacilitatorsSubsection("#employee")
+    }
+  } else if (facilitatorOptions.indexOf(window.location.hash) != -1) {
+    if (window.location.hash != activeFacilitator) {
+      fadeToFacilitatorsSubsection(window.location.hash)
+    }
+  }
+})
 
+$(document).on('click', '#part-one button', function(e) {
   if ($(activeFacilitator).serializeArray().length != $(activeFacilitator).children('.properties').length) {
     // TODO: Alert the user what's up
     return;
   }
 
-  var index = facilitators.indexOf(activeFacilitator)
+  var index = facilitatorOptions.indexOf(activeFacilitator)
   var next = index + 1
-  if (next >= facilitators.length) {
-    fadeTo($("#part-two"))
+  if (next >= facilitatorOptions.length) {
+    fadeTo("#part-two")
   } else {
-    fadeToFacilitatorsSubsection(facilitators[next])
+    fadeToFacilitatorsSubsection(facilitatorOptions[next])
   }
 })
 
@@ -86,25 +105,24 @@ $(document).on('click', 'input', function(e) {
 
 $(document).on('click', '#header div', function(e) {
   var target = $(e.target).attr('data-link')
-  var $el = $("#" + target)
-  fadeTo($el)
+  fadeTo("#" + target)
 })
 
 $(document).on('click', '#part-two button', function(e) {
   if (partTwoPercentage() === 1) {
-    fadeTo($("#part-three"))
+    fadeTo("#part-three")
   }
 })
 
 $(document).on('click', '#part-three button', function(e) {
   if (partThreePercentage() === 1) {
     calculateAllResults()
-    fadeTo($("#results"))
+    fadeTo("#results")
   }
 })
 
 $("#part-one").show()
-$active = $("#part-one")
+active = "#part-one"
 
 function renderPartOne() {
   var mapProperty = function(item) {
@@ -116,19 +134,19 @@ function renderPartOne() {
   var employee = window.organizationalProperties
     .filter(function(i) { return i.category === "employee"})
     .map(mapProperty)
-    .forEach(function($el) { $el.appendTo($("#part-one .content .employee")) })
+    .forEach(function($el) { $el.appendTo($("#employee")) })
 
   var leadership = window.organizationalProperties
     .filter(function(i) { return i.category === "leadership"})
     .map(mapProperty)
-    .forEach(function($el) { $el.appendTo($("#part-one .content .leadership")) })
+    .forEach(function($el) { $el.appendTo($("#leadership")) })
 
   var organization = window.organizationalProperties
     .filter(function(i) { return i.category === "organizational"})
     .map(mapProperty)
-    .forEach(function($el) { $el.appendTo($("#part-one .content .organizational")) })
+    .forEach(function($el) { $el.appendTo($("#organizational")) })
 
-  activeFacilitator = "#part-one .employee"
+  activeFacilitator = "#employee"
 }
 
 function renderPartTwo() {

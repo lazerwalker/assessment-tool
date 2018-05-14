@@ -37,11 +37,11 @@ button {
   width: 19%;
 }
 
-#part-one .content .leadership, #part-one .content .organizational {
+#leadership, #organizational {
   display: none
 }
 
-#part-one .content .employee {
+#employee {
   display: block;
 }
 
