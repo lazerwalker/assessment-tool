@@ -1,4 +1,5 @@
 var $active;
+var activeFacilitator;
 
 function fadeTo($el) {
   $active.fadeOut(400, function() {
@@ -8,8 +9,24 @@ function fadeTo($el) {
   })
 }
 
+function fadeToFacilitatorsSubsection(el) {
+  $(activeFacilitator).fadeOut(400, function() {
+    $(document.body).scrollTop()
+    $(el).fadeIn(400)
+    activeFacilitator = el
+  })
+}
+
 $(document).on('click', '#part-one button', function(e) {
-  fadeTo($("#part-two"))
+  var facilitators = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
+
+  var index = facilitators.indexOf(activeFacilitator)
+  var next = index + 1
+  if (next >= facilitators.length) {
+    fadeTo($("#part-two"))
+  } else {
+    fadeToFacilitatorsSubsection(facilitators[next])
+  }
 })
 
 $(document).on('click', '#header div', function(e) {
@@ -31,13 +48,28 @@ $("#part-one").show()
 $active = $("#part-one")
 
 function renderPartOne() {
-  window.organizationalProperties
-    .map(function(item) {
-      var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+  var mapProperty = function(item) {
+    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
 
-      return $("<div class='properties'><input type='checkbox' class='col-2' id='" + id + "'/><label class='col-10' for='" + id + "'>" + item.text + "</label></div>")
-    })
-    .forEach(function($el) { $el.appendTo($("#part-one .content")) })
+    return $("<div class='properties'><input type='checkbox' class='col-2' id='" + id + "'/><label class='col-10' for='" + id + "'>" + item.text + "</label></div>")
+  };
+
+  var employee = window.organizationalProperties
+    .filter(function(i) { return i.category === "employee"})
+    .map(mapProperty)
+    .forEach(function($el) { $el.appendTo($("#part-one .content .employee")) })
+
+  var leadership = window.organizationalProperties
+    .filter(function(i) { return i.category === "leadership"})
+    .map(mapProperty)
+    .forEach(function($el) { $el.appendTo($("#part-one .content .leadership")) })
+
+  var organization = window.organizationalProperties
+    .filter(function(i) { return i.category === "organizational"})
+    .map(mapProperty)
+    .forEach(function($el) { $el.appendTo($("#part-one .content .organizational")) })
+
+  activeFacilitator = "#part-one .employee"
 }
 
 function renderPartTwo() {

@@ -12,133 +12,176 @@ window.types = [
 window.organizationalProperties = [
   {
     text: "Employees engage others in social activites like sports teams and interest groups through their own initiative.",
-    values: [false, true, true, false, false, false, false, false]
+    values: [false, true, true, false, false, false, false, false],
+    category: "employee"
   }, {
     text: "Organizational leadership does NOT discourage employees from participation in wellness activities.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Organizational leadership does NOT discourage employees from initiating social activities like sports teams and interest groups with co-workers outside of work.",
-    values: [false, true, true, false, false, false, false, false]
+    values: [false, true, true, false, false, false, false, false],
+    category: "leadership"
   }, {
     text: "Employees take health and wellness seriously and perceive a need for taking time for wellness.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees share values and interests with their peers.",
-    values: [false, true, true, false, true, true, false, false]
+    values: [false, true, true, false, true, true, false, false],
+    category: "employee"
   }, {
     text: "Employees show their support for peers who make positive lifestyle changes.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees can usually find the time to take breaks and lunches to become refreshed.",
-    values: [false, true, true, false, true, true, false, false]
+    values: [false, true, true, false, true, true, false, false],
+    category: "employee"
   }, {
     text: "Employees are motivated to engage in healthy behaviors outside of work.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees are motivated to engage in healthy behaviors at work.",
-    values: [false, true, true, false, true, true, false, false]
+    values: [false, true, true, false, true, true, false, false],
+    category: "employee"
   }, {
     text: "There are employees who want to stop their smoking habit.",
-    values: [false, false, false, false, false, false, true, true]
+    values: [false, false, false, false, false, false, true, true],
+    category: "employee"
   }, {
     text: "There are employees who want to lose weight to be healthier.",
-    values: [false, false, false, true, true, true, true, true]
+    values: [false, false, false, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "There are employees who perceive a need to lower their alcohol intake.",
-    values: [false, false, false, false, false, false, true, true]
+    values: [false, false, false, false, false, false, true, true],
+    category: "employee"
   }, {
     text: "Employees perceive the need for taking time for wellness.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees like the concept of financial incentives tied to healthy behaviors.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees like the concept of non-financial incentives such as public recognition and acknowledgement of healthy goal achievement.",
-    values: [false, false, true, true, true, true, true, true]
+    values: [false, false, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "There is an employee group that is involved in designing wellness programs.",
-    values: [false, true, true, false, true, true, true, true]
+    values: [false, true, true, false, true, true, true, true],
+    category: "employee"
   }, {
     text: "Employees want to engage in social activities at work.",
-    values: [false, true, true, false, false, false, false, false]
+    values: [false, true, true, false, false, false, false, false],
+    category: "employee"
   }, {
     text: "Employees have an effective communication system at work so that they can publicize and organize social activities.",
-    values: [false, true, true, false, false, false, false, false]
+    values: [false, true, true, false, false, false, false, false],
+    category: "employee"
   }, {
     text: "Employees can take time out from work to engage in healthy behaviors such as taking a walk, exercising, eating healthy food, and participating in social activities.",
-    values: [false, true, true, false, true, true, false, false]
+    values: [false, true, true, false, true, true, false, false],
+    category: "employee"
   }, {
     text: "The nature of employees’ work does not prevent them from leaving their work to participate in a wellness program for a short period of time.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "organizational"
   }, {
     text: "Managers support employees who want to leave their work to participate in a wellness program.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Employees have time outside of work for wellness activities.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "employee"
   }, {
     text: "Wellness programs are scheduled at a convenient time and location.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "organizational"
   }, {
     text: "Wellness activities are affordable for employees.",
-    values: [true, true, true, true, true, true, true, true]
+    values: [true, true, true, true, true, true, true, true],
+    category: "organizational"
   }, {
     text: "The cost of employee participation in a wellness program is subsidized by the organization.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "organizational"
   }, {
     text: "Leadership understands the link between health and work outcomes.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership supports employee involvement in wellness program design.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership models healthy behavior.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership demonstrates concern for employees’ health and well-being.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership is interested in addressing employee health issues such as diabetes, hypertension, cardiovascular disease, and obesity.",
-    values: [false, false, false, true, true, true, true, true]
+    values: [false, false, false, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership offers financial rewards for employees who achieve their wellness goals.",
-    values: [false, false, true, true, true, true, true, true]
+    values: [false, false, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership trusts that employees will take time for their health and get their work done.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership asks employees what wellness activities they want and need.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership communicates that work and health have equal priority in the organization.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership publicly recognizes employees who achieve their wellness goals.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership encourages employees to take time for their health.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership uses an organization-wide communication platform to communicate their support of healthy behavior.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Leadership communicates positive messages about wellness.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "leadership"
   }, {
     text: "Organization can afford to make financial investments to improve employees’ health and wellness (e.g., ergonomic furniture, sports areas, gym, walking paths).",
-    values: [false, false, false, false, true, true, false, false]
+    values: [false, false, false, false, true, true, false, false],
+    category: "organizational"
   }, {
     text: "Organization can afford to dedicate a person or department to managing employee wellness.",
-    values: [false, true, true, true, true, true, true, true]
+    values: [false, true, true, true, true, true, true, true],
+    category: "organizational"
   }, {
     text: "Leadership has established reasonable work hours.",
-    values: [true, false, false, true, false, false, true, false]
+    values: [true, false, false, true, false, false, true, false],
+    category: "leadership"
   }, {
     text: "Employees have organization-sponsored health insurance.",
-    values: [true, false, false, true, false, false, true, false]
+    values: [true, false, false, true, false, false, true, false],
+    category: "employee"
   }, {
     text: "Organization has a healthcare provider that offers wellness programs that employees use.",
-    values: [true, false, false, true, false, false, true, false]
+    values: [true, false, false, true, false, false, true, false],
+    category: "organizational"
   }
 ]
 

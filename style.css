@@ -36,3 +36,11 @@ button {
   height: 100%;
   width: 19%;
 }
+
+#part-one .content .leadership, #part-one .content .organizational {
+  display: none
+}
+
+#part-one .content .employee {
+  display: block;
+}
