@@ -17,6 +17,14 @@ function fadeToFacilitatorsSubsection(el) {
   })
 }
 
+function partTwoPercentage() {
+  return $("#part-two .content").serializeArray().length / ($("#part-two .content").children('.critical').length)
+}
+
+function partThreePercentage() {
+  return $("#part-three .content").serializeArray().length / ($("#part-two .content").children('.critical').length)
+}
+
 $(document).on('click', '#part-one button', function(e) {
   var facilitators = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
 
@@ -41,12 +49,16 @@ $(document).on('click', '#header div', function(e) {
 })
 
 $(document).on('click', '#part-two button', function(e) {
-  fadeTo($("#part-three"))
+  if (partTwoPercentage() === 1) {
+    fadeTo($("#part-three"))
+  }
 })
 
 $(document).on('click', '#part-three button', function(e) {
-  calculateAllResults()
-  fadeTo($("#results"))
+  if (partThreePercentage() === 1) {
+    calculateAllResults()
+    fadeTo($("#results"))
+  }
 })
 
 $("#part-one").show()
@@ -81,14 +93,14 @@ function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
     var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
 
-    return $("<div class='critical'><input type='checkbox' id='" + id + "'/><label for='" + id + "'>" + item.text + "</span></div>")
+    return $("<div class='row critical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
   }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
 }
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
     var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
-    return $("<div class='noncritical'><input type='checkbox' id='" + id + "'/><label for='" + id + "'>" + item.text + "</label></div>");
+    return $("<div class='row noncritical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>");
   }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
 
