@@ -22,7 +22,7 @@ function partTwoPercentage() {
 }
 
 function partThreePercentage() {
-  return $("#part-three .content").serializeArray().length / ($("#part-two .content").children('.critical').length)
+  return $("#part-three .content").serializeArray().length / ($("#part-three .content").children('.noncritical').length)
 }
 
 $(document).on('click', '#part-one button', function(e) {
@@ -40,6 +40,12 @@ $(document).on('click', '#part-one button', function(e) {
   } else {
     fadeToFacilitatorsSubsection(facilitators[next])
   }
+})
+
+$(document).on('click', 'input', function(e) {
+  $("#part-one-percent").text("5");
+  $("#part-two-percent").text(Math.floor(partTwoPercentage() * 100))
+  $("#part-three-percent").text(Math.floor(partThreePercentage() * 100))
 })
 
 $(document).on('click', '#header div', function(e) {
