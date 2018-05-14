@@ -20,6 +20,11 @@ function fadeToFacilitatorsSubsection(el) {
 $(document).on('click', '#part-one button', function(e) {
   var facilitators = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
 
+  if ($(activeFacilitator).serializeArray().length != $(activeFacilitator).children('.properties').length) {
+    // TODO: Alert the user what's up
+    return;
+  }
+
   var index = facilitators.indexOf(activeFacilitator)
   var next = index + 1
   if (next >= facilitators.length) {
@@ -51,7 +56,7 @@ function renderPartOne() {
   var mapProperty = function(item) {
     var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
 
-    return $("<div class='properties'><input type='checkbox' class='col-2' id='" + id + "'/><label class='col-10' for='" + id + "'>" + item.text + "</label></div>")
+    return $("<div class='row properties'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
   };
 
   var employee = window.organizationalProperties
