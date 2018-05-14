@@ -43,6 +43,18 @@ function partThreePercentage() {
   return $("#part-three .content").serializeArray().length / ($("#part-three .content").children('.noncritical').length)
 }
 
+function partOneSubsectionIsComplete() {
+  return ($(activeFacilitator).serializeArray().length === $(activeFacilitator).children('.properties').length)
+}
+
+function partTwoIsComplete() {
+  return partTwoPercentage() === 1
+}
+
+function partThreeIsComplete() {
+  return partThreePercentage() === 1
+}
+
 window.addEventListener('hashchange', function(e) {
   console.log(window.location.hash)
   if (activeOptions.indexOf(window.location.hash) !== -1) {
@@ -60,8 +72,7 @@ window.addEventListener('hashchange', function(e) {
 })
 
 $(document).on('click', '#part-one button', function(e) {
-  if ($(activeFacilitator).serializeArray().length != $(activeFacilitator).children('.properties').length) {
-    // TODO: Alert the user what's up
+  if (!partOneSubsectionIsComplete()) {
     return;
   }
 
@@ -79,6 +90,36 @@ $(document).on('click', 'input', function(e) {
   $("#part-one-percent").text(Math.floor(partOnePercentage() * 100))
   $("#part-two-percent").text(Math.floor(partTwoPercentage() * 100))
   $("#part-three-percent").text(Math.floor(partThreePercentage() * 100))
+
+  function grayOut(el) {
+    $(el)
+    .removeClass('btn-primary')
+    .addClass('btn-secondary')
+  }
+
+  function enable(el) {
+    $(el)
+      .removeClass('btn-secondary')
+      .addClass('btn-primary')
+  }
+
+  if (partOneSubsectionIsComplete()) {
+    enable("#part-one button")
+  } else {
+    grayOut("#part-one button")
+  }
+
+  if (partTwoIsComplete()) {
+    enable("#part-two button")
+  } else {
+    grayOut("#part-two button")
+  }
+
+  if (partThreeIsComplete()) {
+    enable("#part-three button")
+  } else {
+    grayOut("#part-one button")
+  }
 
   // Update results
   calculateAllResults()
@@ -98,9 +139,6 @@ $(document).on('click', 'input', function(e) {
     $("#" + domType + "-percent-pos").text(results[type].positivePercentage)
     $("#" + domType + "-percent-neg").text(negativePercent)
   })
-
-
-
 })
 
 $(document).on('click', '#header div', function(e) {
@@ -109,13 +147,13 @@ $(document).on('click', '#header div', function(e) {
 })
 
 $(document).on('click', '#part-two button', function(e) {
-  if (partTwoPercentage() === 1) {
+  if (partTwoIsComplete()) {
     fadeTo("#part-three")
   }
 })
 
 $(document).on('click', '#part-three button', function(e) {
-  if (partThreePercentage() === 1) {
+  if (partThreeIsComplete()) {
     calculateAllResults()
     fadeTo("#results")
   }
