@@ -185,7 +185,9 @@ window.organizationalProperties = [
   }
 ]
 
-window.organizationalPropertyDenominators = [9, 33, 35, 31, 34, 34, 34, 31]
+window.organizationalProperties.forEach(function(o) {
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+})
 
 window.criticalBarriers = [
   {
@@ -250,6 +252,10 @@ window.criticalBarriers = [
     values: [false, false, false, false, false, true]
   }
 ]
+
+window.criticalBarriers.forEach(function(o) {
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+})
 
 var noncriticalBarriers = [
   {
@@ -326,3 +332,7 @@ var noncriticalBarriers = [
     values: [true, true, true, false, true]
   }
 ]
+
+noncriticalBarriers.forEach(function(o) {
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+})

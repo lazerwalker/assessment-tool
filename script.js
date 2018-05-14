@@ -15,10 +15,16 @@ function fadeToFacilitatorsSubsection(el) {
     $(el).fadeIn(400)
     activeFacilitator = el
   })
+};
+
+function allPartOneResults() {
+  return ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"]
+    .map(function(el) { return $(el).serializeArray() })
+    .reduce(function(el, acc) { return acc.concat(el) }, []);
 }
 
 function partOnePercentage() {
-  var filled = ["#part-one .employee", "#part-one .leadership", "#part-one .organizational"].reduce(function(acc, el) { return acc + $(el).serializeArray().length }, 0)
+  var filled = allPartOneResults().length
   var total = $("#part-one .properties").length
 
   return filled / total
@@ -50,9 +56,32 @@ $(document).on('click', '#part-one button', function(e) {
 })
 
 $(document).on('click', 'input', function(e) {
+  // Update tops
   $("#part-one-percent").text(Math.floor(partOnePercentage() * 100))
   $("#part-two-percent").text(Math.floor(partTwoPercentage() * 100))
   $("#part-three-percent").text(Math.floor(partThreePercentage() * 100))
+
+  // Update results
+  calculateAllResults()
+
+  var typeToDOMType = function(type) {
+    return type.replace("-", "").toLowerCase();
+  }
+
+  _.forEach(window.types, function(type) {
+    var domType = typeToDOMType(type)
+
+    var negativePercent = results[type.negativePercentage]
+    if (results[type].hasCriticalBarriers) {
+      negativePercent = 100
+    }
+
+    $("#" + domType + "-percent-pos").text(results[type].positivePercentage)
+    $("#" + domType + "-percent-neg").text(negativePercent)
+  })
+
+
+
 })
 
 $(document).on('click', '#header div', function(e) {
@@ -118,24 +147,20 @@ function renderPartThree() {
 }
 
 function calculatePartOne() {
-  function calculatePartOneSums() {
+  function calculatePartOneYesses() {
     var relevantBools = [];
 
-    var items = toArray(document.querySelectorAll(".properties input"))
-    var isChecked = items.map(function(i) { return i.checked })
-
-    for (var i = 0; i < window.organizationalProperties.length; i++) {
-      var checked = isChecked[i];
-      if (!checked) continue
-
-      var item = window.organizationalProperties[i];
-      relevantBools.push(item);
-    }
+    allPartOneResults()
+      .filter(function(r) { return r.value === "yes"; })
+      .forEach(function(line) {
+        let item = window.organizationalProperties.find(function(p) { return p.id === line.name })
+        relevantBools.push(item.values)
+      })
 
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        if (current.values[i]) {
+        if (current[i]) {
           result.push(acc[i] + 1)
         } else {
           result.push(acc[i])
@@ -145,14 +170,40 @@ function calculatePartOne() {
     }, [0, 0, 0, 0, 0, 0, 0, 0]);
   }
 
-  var sums = calculatePartOneSums()
+  function calculatePartOneNos() {
+    var relevantBools = [];
+
+    allPartOneResults()
+      .filter(function(r) { return r.value === "no"; })
+      .forEach(function(line) {
+        let item = window.organizationalProperties.find(function(p) { return p.id === line.name })
+        relevantBools.push(item.values)
+      })
+
+    return relevantBools.reduce(function(acc, current) {
+      var result = []
+      for (var i = 0; i < 8; i++) {
+        if (current[i]) {
+          result.push(acc[i] + 1)
+        } else {
+          result.push(acc[i])
+        }
+      }
+      return result
+    }, [0, 0, 0, 0, 0, 0, 0, 0]);
+  }
+
+  var yesses = calculatePartOneYesses()
+  var nos = calculatePartOneNos()
   var percentageObj = {};
-  for (var i = 0; i < sums.length; i++) {
-    var sum = sums[i];
-    var denominator = window.organizationalPropertyDenominators[i];
-    var percentage = Math.floor(100 * sum / denominator)
+  for (var i = 0; i < yesses.length; i++) {
+    var yes = yesses[i];
+    var denominator = yes + (nos[i])
+    if (denominator < 1) denominator = 1
+
+    var percentage = Math.floor(100 * yes / denominator)
     percentageObj[window.types[i]] = {
-      percentage: percentage
+      positivePercentage: percentage
     };
   }
 
@@ -167,21 +218,18 @@ function calculatePartTwo() {
   function calculatePartTwoResults() {
     var relevantBools = [];
 
-    var items = toArray(document.querySelectorAll(".critical input"))
-    var isChecked = items.map(function(i) { return i.checked })
-
-    for (var i = 0; i < window.criticalBarriers.length; i++) {
-      var checked = isChecked[i];
-      if (!checked) continue
-
-      var item = window.criticalBarriers[i];
-      relevantBools.push(item);
-    }
+    $("#part-two .content").serializeArray()
+      .filter(function(r) { return r.value === "yes"; })
+      .forEach(function(line) {
+        let item = window.criticalBarriers.find(function(p) { return p.id === line.name })
+        console.log(item)
+        relevantBools.push(item.values)
+      })
 
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        result.push(acc[i] || !!current.values[i])
+        result.push(acc[i] || !!current[i])
       }
       return result
     }, [false, false, false, false, false, false, false, false]);
@@ -199,38 +247,67 @@ function calculatePartTwo() {
 }
 
 function calculatePartThree() {
-  function calculatePartThreeResults() {
+  function calculatePartThreeYesses() {
     var relevantBools = [];
 
-    var items = toArray(document.querySelectorAll(".noncritical input"))
-    var isChecked = items.map(function(i) { return i.checked })
-
-    for (var i = 0; i < window.noncriticalBarriers.length; i++) {
-      var checked = isChecked[i];
-      if (!checked) continue
-
-      var item = window.noncriticalBarriers[i];
-      relevantBools.push(item);
-    }
+    $("#part-three .content").serializeArray()
+      .filter(function(r) { return r.value === "yes"; })
+      .forEach(function(line) {
+        let item = window.noncriticalBarriers.find(function(p) { return p.id === line.name })
+        relevantBools.push(item.values)
+      })
 
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        result.push(acc[i] || !!current.values[i])
+        if (current[i]) {
+          result.push(acc[i] + 1)
+        } else {
+          result.push(acc[i])
+        }
       }
       return result
-    }, [false, false, false, false, false, false, false, false]);
+    }, [0, 0, 0, 0, 0, 0, 0, 0]);
   }
 
-  var results = calculatePartThreeResults()
-  var obj = {};
-  for (var i = 0; i < results.length; i++) {
-    var result = results[i];
-    obj[window.types[i]] = {
-      hasNonCriticalBarriers: result
-    }
+  function calculatePartThreeNos() {
+    var relevantBools = [];
+
+    $("#part-three .content").serializeArray()
+      .filter(function(r) { return r.value === "no"; })
+      .forEach(function(line) {
+        let item = window.noncriticalBarriers.find(function(p) { return p.id === line.name })
+        relevantBools.push(item.values)
+      })
+
+    return relevantBools.reduce(function(acc, current) {
+      var result = []
+      for (var i = 0; i < 8; i++) {
+        if (current[i]) {
+          result.push(acc[i] + 1)
+        } else {
+          result.push(acc[i])
+        }
+      }
+      return result
+    }, [0, 0, 0, 0, 0, 0, 0, 0]);
   }
-  return obj;
+
+  var yesses = calculatePartThreeYesses()
+  var nos = calculatePartThreeNos()
+  var percentageObj = {};
+  for (var i = 0; i < yesses.length; i++) {
+    var yes = yesses[i];
+    var denominator = yes + (nos[i])
+    if (denominator < 1) denominator = 1
+
+    var percentage = Math.floor(100 * yes / denominator)
+    percentageObj[window.types[i]] = {
+      negativePercentage: percentage
+    };
+  }
+
+  return percentageObj;
 }
 
 function calculateAllResults() {
@@ -238,28 +315,27 @@ function calculateAllResults() {
   var two = calculatePartTwo()
   var three = calculatePartThree()
 
-  var results = [];
+  var resultsArray = [];
+  var results = {};
+
+  // TODO: This is very silly.
 
   var keys = _.keys(one)
   _.forEach(keys, function(k) {
     var obj = _.extend({type: k}, one[k], two[k], three[k])
-    results.push(obj)
+    resultsArray.push(obj)
   })
 
-  var withCriticalBarriers = _.filter(results, function(r) { return r.hasCriticalBarriers })
-  var withoutCriticalBarriers = _.filter(results, function(r) { return !r.hasCriticalBarriers })
-
-  var sortedWith =  _.sortBy(withCriticalBarriers, 'percentage').reverse()
-  var sortedWithout =  _.sortBy(withoutCriticalBarriers, 'percentage').reverse()
-
-  results = sortedWithout.concat(sortedWith)
-  console.log(results)
-  renderResults(results)
+  _.forEach(resultsArray, function(obj) {
+    console.log(obj)
+    results[obj.type] = obj;
+  })
+  window.results = results
 }
 
 function renderResults(results) {
   results.map(function(item) {
-    var text = "<div class='result'><strong>" + item.type + "</strong>: " + item.percentage + "% match. ";
+    var text = "<div class='result'><strong>" + item.type + "</strong>: " + item.positivePercentage + "% match. ";
     if (item.hasCriticalBarriers) {
       text += "Has critical barriers. "
     }
