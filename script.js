@@ -139,6 +139,8 @@ $(document).on('click', 'input', function(e) {
     $("#" + domType + "-percent-pos").text(results[type].positivePercentage)
     $("#" + domType + "-percent-neg").text(negativePercent)
   })
+
+  renderResults()
 })
 
 $(document).on('click', '#header div', function(e) {
@@ -164,7 +166,7 @@ active = "#part-one"
 
 function renderPartOne() {
   var mapProperty = function(item) {
-    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+    var id = item.id
 
     return $("<div class='row properties'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
   };
@@ -189,7 +191,7 @@ function renderPartOne() {
 
 function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
-    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+    var id = item.id
 
     return $("<div class='row critical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
   }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
@@ -197,7 +199,7 @@ function renderPartTwo() {
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
-    var id = item.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+    var id = item.id
     return $("<div class='row noncritical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>");
   }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
@@ -285,10 +287,14 @@ function calculatePartTwo() {
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        result.push(acc[i] || !!current[i])
+        var r = acc[i]
+        if(!!current[i]) {
+          r += 1
+        }
+        result.push(r)
       }
       return result
-    }, [false, false, false, false, false, false, false, false]);
+    }, [0, 0, 0, 0, 0, 0, 0, 0]);
   }
 
   var results = calculatePartTwoResults()
@@ -296,7 +302,8 @@ function calculatePartTwo() {
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
     obj[window.types[i]] = {
-      hasCriticalBarriers: result
+      hasCriticalBarriers: (result > 0),
+      criticalBarrierCount: result
     }
   }
   return obj;
@@ -359,7 +366,8 @@ function calculatePartThree() {
 
     var percentage = Math.floor(100 * yes / denominator)
     percentageObj[window.types[i]] = {
-      negativePercentage: percentage
+      negativePercentage: percentage,
+      noncriticalBarrierCount: yes
     };
   }
 
@@ -385,22 +393,20 @@ function calculateAllResults() {
   _.forEach(resultsArray, function(obj) {
     console.log(obj)
     results[obj.type] = obj;
+    results[obj.type].name = typeMapping[obj.type]
   })
+
   window.results = results
 }
 
-function renderResults(results) {
-  results.map(function(item) {
-    var text = "<div class='result'><strong>" + item.type + "</strong>: " + item.positivePercentage + "% match. ";
-    if (item.hasCriticalBarriers) {
-      text += "Has critical barriers. "
-    }
-    if (item.hasNonCriticalBarriers) {
-      text += "Has non-critical barriers. "
-    }
-    text += "</div>"
+function renderResults() {
+  $("#results .content").html("")
+  _.keys(results).map(function(key) {
+    var item = results[key]
+    var text = "<div class='result'><strong>" + item.name + "</strong>: " + item.positivePercentage + "% match. " + item.criticalBarrierCount + " critical barriers, " + item.noncriticalBarrierCount + " non-critical barriers.</div>"
+    console.log(text)
     return $(text);
-  }).forEach(function(el) { el.appendTo($("#results")) })
+  }).forEach(function(el) { el.appendTo($("#results .content")) })
 }
 
 renderPartOne()

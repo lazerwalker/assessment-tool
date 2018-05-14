@@ -9,6 +9,17 @@ window.types = [
   "DMP"
 ]
 
+window.typeMapping = {
+  "E": "Education",
+  "SCB-E": "Social Community Building by the Employee",
+  "SCB-O": "Social Community Building by the Organization",
+  "PCP-L": "Preventative Care Program Lite",
+  "HHD-L": "Healthy Habit Development Lite",
+  "HHD-E": "Healthy Habit Development Enhanced",
+  "PCP-E": "Preventative Care Program Enhanced",
+  "DMP": "Disease Management"
+}
+
 window.organizationalProperties = [
   {
     text: "Employees engage others in social activites like sports teams and interest groups through their own initiative.",
@@ -186,7 +197,7 @@ window.organizationalProperties = [
 ]
 
 window.organizationalProperties.forEach(function(o) {
-  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").replace("'", "").split(" ").join("-");
 })
 
 window.criticalBarriers = [
@@ -254,7 +265,7 @@ window.criticalBarriers = [
 ]
 
 window.criticalBarriers.forEach(function(o) {
-  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").replace("'", "").split(" ").join("-");
 })
 
 var noncriticalBarriers = [
@@ -334,5 +345,5 @@ var noncriticalBarriers = [
 ]
 
 noncriticalBarriers.forEach(function(o) {
-  o.id = o.text.replace(/[^\x00-\x7F]/g, "").split(" ").join("-");
+  o.id = o.text.replace(/[^\x00-\x7F]/g, "").replace("'", "").split(" ").join("-");
 })
