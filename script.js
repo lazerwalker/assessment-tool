@@ -83,6 +83,8 @@ function handleHashChange() {
       $("#part-one").show()
       fadeToFacilitatorsSubsection(window.location.hash)
     }
+  } else {
+    fadeTo("#home")
   }
 }
 
