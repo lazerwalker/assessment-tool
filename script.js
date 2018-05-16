@@ -90,6 +90,14 @@ function handleHashChange() {
 window.addEventListener('hashchange', handleHashChange)
 handleHashChange()
 
+$(document).on('click', '#home button', function(e) {
+  fadeTo("#dashboard")
+})
+
+$(document).on('click', '#dashboard button', function(e) {
+  fadeTo("#part-one")
+})
+
 $(document).on('click', '#part-one button', function(e) {
   if (!partOneSubsectionIsComplete()) {
     return;
