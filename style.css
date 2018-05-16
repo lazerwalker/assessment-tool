@@ -51,3 +51,15 @@ button {
   top: 80px;
   right: 0;
 }
+
+#header div {
+  cursor: pointer;
+}
+
+.btn-secondary {
+  cursor: default !important;
+}
+
+.btn-secondary:hover {
+  background-color: #6c757d !important;
+}
