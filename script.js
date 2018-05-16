@@ -71,7 +71,6 @@ function partThreeIsComplete() {
 }
 
 function handleHashChange() {
-  console.log(window.location.hash)
   if (activeOptions.indexOf(window.location.hash) !== -1) {
     if (window.location.hash !== active) {
       fadeTo(window.location.hash)
@@ -304,30 +303,32 @@ function calculatePartTwo() {
       .filter(function(r) { return r.value === "yes"; })
       .forEach(function(line) {
         let item = window.criticalBarriers.find(function(p) { return p.id === line.name })
-        console.log(item)
-        relevantBools.push(item.values)
+        relevantBools.push(item)
       })
 
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
         var r = acc[i]
-        if(!!current[i]) {
-          r += 1
+        if(!!current.values[i]) {
+          r = r.concat(current.text)
         }
         result.push(r)
       }
       return result
-    }, [0, 0, 0, 0, 0, 0, 0, 0]);
+    }, [[], [], [], [], [], [], [], []]);
   }
 
   var results = calculatePartTwoResults()
+
+  var criticalBarriers = results.filter(function(r) { return r > 0})
   var obj = {};
   for (var i = 0; i < results.length; i++) {
     var result = results[i];
     obj[window.types[i]] = {
-      hasCriticalBarriers: (result > 0),
-      criticalBarrierCount: result
+      hasCriticalBarriers: (result.length > 0),
+      criticalBarrierCount: result.length,
+      criticalBarriers: result
     }
   }
   return obj;
@@ -341,20 +342,20 @@ function calculatePartThree() {
       .filter(function(r) { return r.value === "yes"; })
       .forEach(function(line) {
         let item = window.noncriticalBarriers.find(function(p) { return p.id === line.name })
-        relevantBools.push(item.values)
+        relevantBools.push(item)
       })
 
     return relevantBools.reduce(function(acc, current) {
       var result = []
       for (var i = 0; i < 8; i++) {
-        if (current[i]) {
-          result.push(acc[i] + 1)
-        } else {
-          result.push(acc[i])
+        var r = acc[i]
+        if(!!current.values[i]) {
+          r = r.concat(current.text)
         }
+        result.push(r)
       }
       return result
-    }, [0, 0, 0, 0, 0, 0, 0, 0]);
+    }, [[], [], [], [], [], [], [], []]);
   }
 
   function calculatePartThreeNos() {
@@ -384,14 +385,15 @@ function calculatePartThree() {
   var nos = calculatePartThreeNos()
   var percentageObj = {};
   for (var i = 0; i < yesses.length; i++) {
-    var yes = yesses[i];
+    var yes = yesses[i].length;
     var denominator = yes + (nos[i])
     if (denominator < 1) denominator = 1
 
     var percentage = Math.floor(100 * yes / denominator)
     percentageObj[window.types[i]] = {
       negativePercentage: percentage,
-      noncriticalBarrierCount: yes
+      noncriticalBarrierCount: yes,
+      noncriticalBarriers: yesses[i]
     };
   }
 
@@ -415,7 +417,6 @@ function calculateAllResults() {
   })
 
   _.forEach(resultsArray, function(obj) {
-    console.log(obj)
     results[obj.type] = obj;
     results[obj.type].name = typeMapping[obj.type]
   })
@@ -427,9 +428,35 @@ function renderResults() {
   $("#results .content").html("")
   _.keys(results).map(function(key) {
     var item = results[key]
-    var text = "<div class='result'><strong>" + item.name + "</strong>: " + item.positivePercentage + "% match. " + item.criticalBarrierCount + " critical barriers, " + item.noncriticalBarrierCount + " non-critical barriers.</div>"
-    console.log(text)
-    return $(text);
+    var $text = $("<div class='result'><strong>" + item.name + "</strong>: " + item.positivePercentage + "% match. " + item.criticalBarrierCount + " critical barriers, " + item.noncriticalBarrierCount + " non-critical barriers.<div class='details'><ul class='critical-barriers-list'><strong>Critical Barriers</strong></ul><ul class='non-critical-barriers-list'><strong>Non-Critical Barriers</strong></ul></div></div>")
+
+    var $critical = $text.find(".critical-barriers-list")
+    item.criticalBarriers.forEach(function(barrier) {
+      $critical.append("<li>" + barrier + "</li>")
+    })
+
+    var $noncritical = $text.find('.non-critical-barriers-list')
+    console.log($noncritical)
+    item.noncriticalBarriers.forEach(function(barrier) {
+      console.log(barrier)
+      $noncritical.append("<li>" + barrier + "</li>")
+    })
+
+    $text.find('.details').hide()
+
+    if (item.noncriticalBarriers.length == 0) {
+      $noncritical.hide()
+    }
+
+    if (item.criticalBarriers.length == 0) {
+      $critical.hide()
+    }
+
+    $text.on('click', function(e) {
+      $text.find('.details').slideToggle()
+    })
+
+    return $text;
   }).forEach(function(el) { el.appendTo($("#results .content")) })
 }
 
