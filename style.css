@@ -34,7 +34,8 @@ button {
 #header div {
   display: inline-block;
   height: 100%;
-  width: 19%;
+  width: 16%;
+  text-align: center;
 }
 
 #leadership, #organizational {

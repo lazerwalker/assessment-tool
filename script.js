@@ -1,16 +1,31 @@
 var active;
 var activeFacilitator;
 
-var activeOptions = ["#home", "#part-one", "#part-two", "#part-three", "#results"]
+var activeOptions = ["#home", "#dashboard", "#part-one", "#part-two", "#part-three", "#results"]
 var facilitatorOptions = ["#employee", "#leadership", "#organization"]
 
 function fadeTo(el) {
+  console.log("Fading to", el, $(el))
   window.location.hash = el
-  $(active).fadeOut(400, function() {
-    $(el).fadeIn(400)
+
+  if (facilitatorOptions.indexOf(active) != -1) {
+    $("#part-one").fadeOut(400, function() {
+      $(el).fadeIn(400)
+      $(active).hide()
+      active = el
+      $(document.body).scrollTop()
+    })
+  } else if (active) {
+    $(active).fadeOut(400, function() {
+      $(el).fadeIn(400)
+      active = el
+      $(document.body).scrollTop()
+    })
+  } else {
+    $(el).show()
     active = el
     $(document.body).scrollTop()
-  })
+  }
 }
 
 function fadeToFacilitatorsSubsection(el) {
@@ -55,7 +70,7 @@ function partThreeIsComplete() {
   return partThreePercentage() === 1
 }
 
-window.addEventListener('hashchange', function(e) {
+function handleHashChange() {
   console.log(window.location.hash)
   if (activeOptions.indexOf(window.location.hash) !== -1) {
     if (window.location.hash !== active) {
@@ -66,10 +81,14 @@ window.addEventListener('hashchange', function(e) {
     }
   } else if (facilitatorOptions.indexOf(window.location.hash) != -1) {
     if (window.location.hash != activeFacilitator) {
+      $("#part-one").show()
       fadeToFacilitatorsSubsection(window.location.hash)
     }
   }
-})
+}
+
+window.addEventListener('hashchange', handleHashChange)
+handleHashChange()
 
 $(document).on('click', '#part-one button', function(e) {
   if (!partOneSubsectionIsComplete()) {
@@ -160,9 +179,6 @@ $(document).on('click', '#part-three button', function(e) {
     fadeTo("#results")
   }
 })
-
-$("#part-one").show()
-active = "#part-one"
 
 function renderPartOne() {
   var mapProperty = function(item) {
