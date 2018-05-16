@@ -78,3 +78,7 @@ button {
 #results-pane li {
   margin-bottom: 1em;
 }
+
+#results ul {
+  list-style: none;
+}
