@@ -428,7 +428,11 @@ function renderResults() {
   $("#results .content").html("")
   _.keys(results).map(function(key) {
     var item = results[key]
-    var $text = $("<div class='result'><strong>" + item.name + "</strong>: " + item.positivePercentage + "% match. " + item.criticalBarrierCount + " critical barriers, " + item.noncriticalBarrierCount + " non-critical barriers.<div class='details'><ul class='critical-barriers-list'><strong>Critical Barriers</strong></ul><ul class='non-critical-barriers-list'><strong>Non-Critical Barriers</strong></ul></div></div>")
+
+    var criticalBarrierNoun = (item.criticalBarrierCount == 1 ? "barrier" : "barriers")
+    var noncriticalBarrierNoun = (item.noncriticalBarrierCount == 1 ? "barrier" : "barriers")
+
+    var $text = $("<div class='result'><strong>" + item.name + "</strong>: " + item.positivePercentage + "% match. " + item.criticalBarrierCount + " critical " + criticalBarrierNoun + ", " + item.noncriticalBarrierCount + " non-critical " + noncriticalBarrierNoun + ".<div class='details'><ul class='critical-barriers-list'><strong>Critical Barriers</strong></ul><ul class='non-critical-barriers-list'><strong>Non-Critical Barriers</strong></ul></div></div>")
 
     var $critical = $text.find(".critical-barriers-list")
     item.criticalBarriers.forEach(function(barrier) {
