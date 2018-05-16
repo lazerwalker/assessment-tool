@@ -49,9 +49,9 @@ button {
 
 #results-pane {
   float: right;
-  position: fixed;
+  position: absolute;
   top: 80px;
-  right: 0;
+  right: -160px;
 }
 
 #header div {
@@ -64,4 +64,17 @@ button {
 
 .btn-secondary:hover {
   background-color: #6c757d !important;
+}
+
+#results-pane ul {
+  list-style: none;
+  padding: 0;
+}
+
+#results-pane .title {
+  font-weight: bold
+}
+
+#results-pane li {
+  margin-bottom: 1em;
 }
