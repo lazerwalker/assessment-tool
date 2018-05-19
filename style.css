@@ -7,13 +7,16 @@ input {
   float: right;
 }
 
+h2 {
+  padding-bottom: 1em;
+}
+
 .properties, .critical, .noncritical {
   margin-bottom: 2em;
 }
 
 .section {
-  font-size: 1.1em;
-  line-height: 1.1em;
+  line-height: 1.5em;
 }
 
 button {
@@ -81,4 +84,13 @@ button {
 
 #results ul {
   list-style: none;
+}
+
+.labels {
+  margin-bottom: 1em;
+}
+
+input[type=radio] {
+  position: relative;
+  left: -25%;
 }
