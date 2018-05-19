@@ -7,6 +7,10 @@ input {
   float: right;
 }
 
+.selected {
+  font-weight: bold;
+}
+
 h2 {
   padding-bottom: 1em;
 }
@@ -21,6 +25,7 @@ h2 {
 
 button {
   float: right;
+  margin-bottom: 1em !important;
 }
 
 .result {

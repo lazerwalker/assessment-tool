@@ -26,6 +26,9 @@ function fadeTo(el) {
     active = el
     $(document.body).scrollTop(0)
   }
+
+  $("#header .top-item").removeClass('selected')
+  $("#header .top-item[data-link='" + el.slice(1) + "']").addClass('selected')
 }
 
 function fadeToFacilitatorsSubsection(el) {
