@@ -13,18 +13,18 @@ function fadeTo(el) {
       $(el).fadeIn(400)
       $(active).hide()
       active = el
-      $(document.body).scrollTop(0)
+      $(document).scrollTop(0)
     })
   } else if (active) {
     $(active).fadeOut(400, function() {
       $(el).fadeIn(400)
       active = el
-      $(document.body).scrollTop(0)
+      $(document).scrollTop(0)
     })
   } else {
     $(el).show()
     active = el
-    $(document.body).scrollTop(0)
+    $(document).scrollTop(0)
   }
 
   $("#header .top-item").removeClass('selected')
@@ -33,7 +33,7 @@ function fadeTo(el) {
 
 function fadeToFacilitatorsSubsection(el) {
   $(activeFacilitator).fadeOut(400, function() {
-    $(document.body).scrollTop(0)
+    $(document).scrollTop(0)
     $(el).fadeIn(400)
     activeFacilitator = el
     window.location.hash = el
@@ -88,7 +88,9 @@ function handleHashChange() {
     }
   } else {
     fadeTo("#home")
-    $(document).scrollTop(0)
+    setTimeout(function() {
+      $(document).scrollTop(0)
+    }, 0)
   }
 }
 
