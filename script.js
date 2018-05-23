@@ -448,7 +448,6 @@ function renderResults() {
     })
 
     var $noncritical = $text.find('.non-critical-barriers-list')
-    console.log($noncritical)
     item.noncriticalBarriers.forEach(function(barrier) {
       console.log(barrier)
       $noncritical.append("<li>" + barrier + "</li>")
