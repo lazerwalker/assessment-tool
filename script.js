@@ -152,7 +152,7 @@ $(document).on('click', 'input', function(e) {
   if (partThreeIsComplete()) {
     enable("#part-three button")
   } else {
-    grayOut("#part-one button")
+    grayOut("#part-three button")
   }
 
   // Update results
