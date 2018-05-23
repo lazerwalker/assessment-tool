@@ -10,6 +10,7 @@ function fadeTo(el) {
 
   if (facilitatorOptions.indexOf(active) != -1) {
     $("#part-one").fadeOut(400, function() {
+      $(".section").hide()
       $(el).fadeIn(400)
       $(active).hide()
       active = el
