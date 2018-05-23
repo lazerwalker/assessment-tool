@@ -32,6 +32,12 @@ function fadeTo(el) {
 
   $(".top-item").removeClass('selected')
   $(".top-item[data-link='" + el.slice(1) + "']").addClass('selected')
+
+  if (el == "#home" || el == "#dashboard") {
+    $("#results-pane").hide()
+  } else {
+    $("#results-pane").show()
+  }
 }
 
 function fadeToFacilitatorsSubsection(el) {
