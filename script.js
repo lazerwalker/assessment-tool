@@ -165,7 +165,7 @@ $(document).on('click', 'input', function(e) {
   _.forEach(window.types, function(type) {
     var domType = typeToDOMType(type)
 
-    var negativePercent = results[type.negativePercentage]
+    var negativePercent = results[type].negativePercentage
     if (results[type].hasCriticalBarriers) {
       negativePercent = 100
     }
