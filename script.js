@@ -12,20 +12,22 @@ function fadeTo(el) {
     $("#part-one").fadeOut(400, function() {
       $(".section").hide()
       $(el).fadeIn(400)
-      $(active).hide()
-      active = el
-      $(document).scrollTop(0)
-    })
-  } else if (active) {
-    $(active).fadeOut(400, function() {
-      $(el).fadeIn(400)
       active = el
       $(document).scrollTop(0)
     })
   } else {
-    $(el).show()
-    active = el
-    $(document).scrollTop(0)
+    if (active) {
+      $(active).fadeOut(400, function() {
+        $(".section").hide()
+        $(el).fadeIn(400)
+        active = el
+        $(document).scrollTop(0)
+      })
+    } else {
+      $(el).show()
+      active = el
+      $(document).scrollTop(0)
+    }
   }
 
   $(".top-item").removeClass('selected')
@@ -42,7 +44,7 @@ function fadeToFacilitatorsSubsection(el) {
 };
 
 function allPartOneResults() {
-  return ["#employee", "#leadership", "#organizational"]
+  return facilitatorOptions
     .map(function(el) { return $(el).serializeArray() })
     .reduce(function(el, acc) { return acc.concat(el) }, []);
 }
@@ -62,8 +64,27 @@ function partThreePercentage() {
   return $("#part-three .content").serializeArray().length / ($("#part-three .content").children('.noncritical').length)
 }
 
-function partOneSubsectionIsComplete() {
-  return ($(activeFacilitator).serializeArray().length === $(activeFacilitator).children('.properties').length)
+function partOneSubsectionIsComplete(section) {
+  el = section || activeFacilitator
+
+  return ($(el).serializeArray().length === $(el).children('.properties').length)
+}
+
+// TODO: This is laughable.
+function currentPartOneSection() {
+  if (partOneSubsectionIsComplete("#employee")) {
+    if (partOneSubsectionIsComplete("#leadership")) {
+      if (partOneSubsectionIsComplete("#organizational")) {
+        return "#employee"
+      } else {
+        return "#organizational"
+      }
+    } else {
+      return "#leadership"
+    }
+  } else {
+    return "#employee"
+  }
 }
 
 function partTwoIsComplete() {
@@ -80,7 +101,7 @@ function handleHashChange() {
       fadeTo(window.location.hash)
     }
     if (window.location.hash == "#part-one") {
-      fadeToFacilitatorsSubsection("#employee")
+      fadeToFacilitatorsSubsection(currentPartOneSection())
     }
   } else if (facilitatorOptions.indexOf(window.location.hash) != -1) {
     if (window.location.hash != activeFacilitator) {
@@ -180,7 +201,7 @@ $(document).on('click', 'input', function(e) {
 
 $(document).on('click', '.top-item', function(e) {
   var target = $(e.target).attr('data-link')
-  fadeTo("#" + target)
+  window.location.hash = ("#" + target)
 })
 
 $(document).on('click', '#part-two button', function(e) {

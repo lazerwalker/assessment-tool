@@ -61,6 +61,8 @@ button {
   top: 0px;
   right: 0px;
   width: 340px;
+  height: 100%;
+  bottom: 0;
 }
 
 #header div {
