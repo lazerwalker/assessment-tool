@@ -2,7 +2,7 @@ var active;
 var activeFacilitator;
 
 var activeOptions = ["#home", "#dashboard", "#part-one", "#part-two", "#part-three", "#results"]
-var facilitatorOptions = ["#employee", "#leadership", "#organization"]
+var facilitatorOptions = ["#employee", "#leadership", "#organizational"]
 
 function fadeTo(el) {
   console.log("Fading to", el, $(el))
