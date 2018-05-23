@@ -57,10 +57,10 @@ button {
 }
 
 #results-pane {
-  float: right;
-  position: absolute;
-  top: 80px;
-  right: -160px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 340px;
 }
 
 #header div {

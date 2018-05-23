@@ -27,8 +27,8 @@ function fadeTo(el) {
     $(document).scrollTop(0)
   }
 
-  $("#header .top-item").removeClass('selected')
-  $("#header .top-item[data-link='" + el.slice(1) + "']").addClass('selected')
+  $(".top-item").removeClass('selected')
+  $(".top-item[data-link='" + el.slice(1) + "']").addClass('selected')
 }
 
 function fadeToFacilitatorsSubsection(el) {
@@ -177,7 +177,7 @@ $(document).on('click', 'input', function(e) {
   renderResults()
 })
 
-$(document).on('click', '#header div', function(e) {
+$(document).on('click', '.top-item', function(e) {
   var target = $(e.target).attr('data-link')
   fadeTo("#" + target)
 })
