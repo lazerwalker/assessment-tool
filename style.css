@@ -56,6 +56,12 @@ button {
   display: block;
 }
 
+.does-this-statement {
+  float: right;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
 #results-pane {
   position: fixed;
   top: 0px;
