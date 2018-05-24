@@ -199,7 +199,10 @@ $(document).on('click', 'input', function(e) {
     }
 
     $("#" + domType + "-percent-pos").text(results[type].positivePercentage)
+    $("#" + domType + "-percent-pos-bar").css("width", results[type].positivePercentage + "%")
+
     $("#" + domType + "-percent-neg").text(negativePercent)
+    $("#" + domType + "-percent-neg-bar").css("width", negativePercent + "%")
   })
 
   renderResults()

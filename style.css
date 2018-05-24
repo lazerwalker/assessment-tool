@@ -108,3 +108,27 @@ input[type=radio] {
   position: relative;
   left: -25%;
 }
+
+.percent-wrapper {
+  width: 20%;
+  height: 1em;
+  border: 0.5px solid black;
+  position: relative;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+.percent-bar {
+  width: 0%;
+  position: absolute;
+  height: 100%;
+}
+
+.percent-bar.neg {
+  background-color: red;
+  right: 0;
+}
+
+.percent-bar.pos {
+  background-color: blue;
+}
