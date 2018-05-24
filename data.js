@@ -241,7 +241,7 @@ window.criticalBarriers = [
     text: "Perception that wellness is the employee’s responsibility.",
     values: [false, false, false, false, true, true, false, true],
   }, {
-    text: "The employee population is already healthy.",
+    text: "The employee population is already healthy–no need for a wellness intervention.",
     values: [false, false, false, false, false, false, true, false],
   }, {
     text: "Organization can do only so much for employees.",
@@ -259,7 +259,7 @@ window.criticalBarriers = [
     text: "Long work hours are expected in this organization—no time for it.",
     values: [false, true],
   }, {
-    text: "Employee burnout—no physical or emotional energy to participate).",
+    text: "Employee burnout—no physical or emotional energy to participate.",
     values: [false, false, false, false, false, true]
   }
 ]
