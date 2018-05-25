@@ -133,3 +133,13 @@ input[type=radio] {
 .percent-bar.pos {
   background-color: blue;
 }
+
+.labels span {
+  text-align: center;
+}
+
+#footer {
+  font-size: 0.5em;
+  margin-top: 10em;
+  margin-bottom: 1em;
+}
