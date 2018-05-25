@@ -107,7 +107,7 @@ function handleHashChange() {
       fadeTo(window.location.hash)
     }
     if (window.location.hash == "#part-one") {
-      fadeToFacilitatorsSubsection(currentPartOneSection())
+      fadeToFacilitatorsSubsection("#employee")
     }
   } else if (facilitatorOptions.indexOf(window.location.hash) != -1) {
     if (window.location.hash != activeFacilitator) {
