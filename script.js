@@ -250,7 +250,7 @@ function renderPartOne() {
   var mapProperty = function(item) {
     var id = item.id
 
-    return $("<div class='row properties'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
+    return $("<div class='row properties'><label class='col-9'>" + item.text + "</label><div class='col-3 answer'><span><input type='radio' name='" + id + "' value='yes'/></span><span><input type='radio' name='" + id + "' value='no'/></span><span><input type='radio' name='" + id + "' value='na'/></span></div></div>")
   };
 
   var employee = window.organizationalProperties
@@ -275,14 +275,14 @@ function renderPartTwo() {
   window.criticalBarriers.map(function(item) {
     var id = item.id
 
-    return $("<div class='row critical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>")
+    return $("<div class='row critical'><label class='col-9'>" + item.text + "</label><div class='col-3 answer'><span><input type='radio' name='" + id + "' value='yes'/></span><span><input type='radio' name='" + id + "' value='no'/></span><span><input type='radio' name='" + id + "' value='na'/></span></div></div>")
   }).forEach(function($el) { $el.appendTo($("#part-two .content"))})
 }
 
 function renderPartThree() {
   window.noncriticalBarriers.map(function(item) {
     var id = item.id
-    return $("<div class='row noncritical'><label class='col-9'>" + item.text + "</label><div class='col-1'><input type='radio' name='" + id + "' value='yes'/></div><div class='col-1'><input type='radio' name='" + id + "' value='no'/></div><div class='col-1'><input type='radio' name='" + id + "' value='na'/></div></div>");
+    return $("<div class='row noncritical'><label class='col-9'>" + item.text + "</label><div class='col-3 answer'><span><input type='radio' name='" + id + "' value='yes'/></span><span><input type='radio' name='" + id + "' value='no'/></span><span><input type='radio' name='" + id + "' value='na'/></span></div></div>");
   }).forEach(function($el) { $el.appendTo($("#part-three .content") )})
 }
 
