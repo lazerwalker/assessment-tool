@@ -102,12 +102,20 @@ button {
   border-top: 30px solid transparent;
 }
 
+.top-item.next-selected:before {
+  border-left-color: #c4820f !important;
+}
+
 .top-item.next {
   padding-left: -10px;
 }
 
 .top-item.next:before {
   display: block;
+}
+
+.top-item.selected {
+  background-color: #c4820f !important;
 }
 
 #leadership, #organizational {
