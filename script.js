@@ -59,11 +59,18 @@ function fadeTo(el) {
     }
   }
 
-  $(".top-item").removeClass('next')
-  $(".top-item").removeClass('next-selected')
+  $(".top-item").removeClass('next next-selected next-out-of-order')
 
   $(".top-item:not(.done)").first().addClass('next')
   $(".top-item.selected").next().addClass('next next-selected')
+
+  var $selected = $(".top-item.selected")
+  var $prev = $selected.prev();
+  if ($prev.hasClass('done')) {
+    $selected.addClass('next')
+  } else {
+    $selected.addClass('next next-out-of-order')
+  }
 }
 
 function fadeToFacilitatorsSubsection(el) {

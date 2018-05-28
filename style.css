@@ -106,6 +106,10 @@ button {
   border-left-color: #c4820f !important;
 }
 
+.top-item.next-out-of-order:before {
+  border-left-color: #003361 !important;
+}
+
 .top-item.next {
   padding-left: -10px;
 }
