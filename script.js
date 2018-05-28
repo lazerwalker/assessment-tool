@@ -40,6 +40,10 @@ function fadeTo(el) {
   }
 
   if (el != "#home") {
+    $("#home-header").addClass('done')
+  }
+
+  if (el != "#home" && el !== "#dashboard") {
     $("#dashboard-header").addClass('done')
   }
 
