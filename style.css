@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'open-sans';
+  src: url('OpenSans-Regular.ttf');
+}
+
+body {
+  font-family: "open-sans", sans-serif !important;
+  color: #333 !important;
+  line-height: 1.3em !important;
+  font-size: 11pt !important;
+}
+
 .section {
   margin-bottom: 1em;
   display: none;
@@ -31,9 +43,11 @@ button {
 
 .result {
   margin-bottom: 1em;
-  font-size: 1.2em;
-  line-height: 1.2em;
   cursor: pointer;
+}
+
+.details {
+  margin-top: 1em;
 }
 
 #header {
@@ -73,6 +87,15 @@ button {
 
 #header div {
   cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #0E8D45 !important;
+  border: none !important;
+}
+
+strong {
+  color: #003361;
 }
 
 .btn-secondary {
@@ -126,12 +149,12 @@ input[type=radio] {
 }
 
 .percent-bar.neg {
-  background-color: red;
+  background-color: #AA0000;
   right: 0;
 }
 
 .percent-bar.pos {
-  background-color: blue;
+  background-color: #0E8D45;
 }
 
 .labels span {
@@ -139,7 +162,12 @@ input[type=radio] {
 }
 
 #footer {
-  font-size: 0.5em;
+  font-size: 0.7em;
   margin-top: 10em;
   margin-bottom: 1em;
+}
+
+h1, h2, h3 {
+  font-family: "Georgia", serif !important;
+  color: #003361 !important;
 }
