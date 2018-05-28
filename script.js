@@ -61,13 +61,9 @@ function fadeTo(el) {
 
   $(".top-item").removeClass('next')
   $(".top-item").removeClass('next-selected')
-  
-  var $next = $(".top-item:not(.done)").first().addClass('next')
 
-  var $lastFinished = $(".top-item.done").last()
-  if ($lastFinished.hasClass('selected')) {
-    $next.addClass('next-selected')
-  }
+  $(".top-item:not(.done)").first().addClass('next')
+  $(".top-item.selected").next().addClass('next next-selected')
 }
 
 function fadeToFacilitatorsSubsection(el) {
