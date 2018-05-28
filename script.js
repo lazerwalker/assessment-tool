@@ -38,6 +38,26 @@ function fadeTo(el) {
   } else {
     $("#results-pane").show()
   }
+
+  if (el != "#home") {
+    $("#dashboard-header").addClass('done')
+  }
+
+  if (partOnePercentage() == 1) {
+    $("#part-one-header").addClass('done')
+
+    if (partTwoPercentage() == 1) {
+      $("#part-two-header").addClass('done')
+
+      if (partThreePercentage() == 1) {
+        $("#part-three-header").addClass('done')
+      }
+    }
+  }
+
+  $(".top-item").removeClass('next')
+  $(".top-item:not(.done)").first().addClass('next')
+
 }
 
 function fadeToFacilitatorsSubsection(el) {
@@ -111,7 +131,7 @@ function handleHashChange() {
     }
   } else if (facilitatorOptions.indexOf(window.location.hash) != -1) {
     if (window.location.hash != activeFacilitator) {
-      $("#part-one").show()
+      fadeTo("#part-one")
       fadeToFacilitatorsSubsection(window.location.hash)
     }
   } else {
@@ -208,7 +228,7 @@ $(document).on('click', 'input', function(e) {
   renderResults()
 })
 
-$(document).on('click', '.top-item', function(e) {
+$(document).on('click', '.top-item, .results-top-item', function(e) {
   var target = $(e.target).attr('data-link')
   window.location.hash = ("#" + target)
 })

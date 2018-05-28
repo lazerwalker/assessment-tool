@@ -52,14 +52,62 @@ button {
 
 #header {
   height: 60px;
-  vertical-align: top;
+  /* vertical-align: top; */
 }
 
-#header div {
-  display: inline-block;
+#header .top-item {
+  color: #EEE;
+  background-color: #003361;
+  float: left;
   height: 100%;
   width: 16%;
   text-align: center;
+  line-height: 60px;
+}
+
+#header-percentages {
+  height: 15px;
+  vertical-align: top;
+}
+
+#header-percentages div {
+  color: #888;
+  float: left;
+  height: 100%;
+  width: 16%;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+#part-two-header, #part-two-header-percentage {
+  width: 18% !important;
+}
+
+#part-three-header, #part-three-header-percentage {
+  width: 19% !important;
+}
+
+#header .top-item.done {
+  background-color: #0E8D45;
+}
+
+.top-item:before {
+  content: "";
+  display: none;
+  width: 0;
+  float: left;
+  border-bottom: 30px solid transparent;
+  border-left: 10px solid #0E8D45;
+  border-top: 30px solid transparent;
+}
+
+.top-item.next {
+  padding-left: -10px;
+}
+
+.top-item.next:before {
+  display: block;
 }
 
 #leadership, #organizational {
@@ -167,7 +215,7 @@ input[type=radio] {
   margin-bottom: 1em;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: "Georgia", serif !important;
   color: #003361 !important;
 }
