@@ -244,3 +244,18 @@ h1, h2, h3, h4 {
   margin-right: 20px;
   margin-bottom: 20px;
 }
+
+#guide-download {
+  float: left;
+  width: 30%;
+  text-align: center;
+  margin-right: 18px;
+}
+
+#guide-download img {
+  width: 100%;
+}
+
+#home button {
+  clear: both;
+}
